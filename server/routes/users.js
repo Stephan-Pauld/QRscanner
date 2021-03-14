@@ -1,57 +1,104 @@
 const express = require("express");
-
 const router = express.Router()
-const Post = require('../models/Posts')
+const User = require('../models/Users')
 
+router.get('/', async (req, res) => {
+  try {
+    const user = await User.find({});
+    res.status(200).json({ success: true, data: user })
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+});
 
-router.get('/', (req, res) => {
-  Post.find()
-    .then(data => {
-      res.json(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
+router.put('/create-event', async (req, res) => {
+  const { body } = req
+  try {
+    const user = await User.findById(body.userId)
+    if (!user) {
+      res.status(400).json({ success: false });
+    }
+    await user.events.push({ name: body.name, description: body.description, atendees: body.atendees })
+    user.save();
+    res.status(201).json({ success: true, data: user })
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+
+});
+
+router.post('/create-account', async (req, res) => {
+  const { body } = req
+
+  //just needs name, pass and email
+  try {
+    const user = await User.create(body);
+    res.status(201).json({ success: true, data: user })
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+
+});
+
+router.get('/:id', async (req, res) => {
+  const {
+    params: { id }
+  } = req
+
+  try {
+    const user = await User.findById(id)
+    if (!user) {
+      return res.status(400).json({ success: false });
+    }
+
+    return res.status(200).json({ success: true, data: user });
+
+  } catch (error) {
+    return res.status(400).json({ success: false });
+  }
 });
 
 
-router.post('/', (req, res) => {
-  const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-    atendee_count: req.body.atendee_count,
-    organizer: req.body.organizer,
-    company: req.body.company,
-  })
-  post.save()
-    .then(data => {
-      res.json(data)
-    })
-    .catch(err => {
-      res.json({ message: err })
-    })
+// THIS DOES NOTHING RIGHT NOW
+router.put('/:id', async (req, res) => {
+  const {
+    params: { id }
+  } = req
+
+  try {
+    // const user = await User.findByIdAndUpdate(id, req.body, {
+    //   new: true,
+    //   runValidators: true,
+    // });
+    const user = await User.findById(id)
+    if (!user) {
+      return res.status(400).json({ success: false });
+    }
+
+    return res.status(200).json({ success: true, data: user });
+  } catch (error) {
+
+    return res.status(400).json({ success: false });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const deletedUser = await User.deleteOne({ _id: id });
+
+    if (!deletedUser) {
+      return res.status(400).json({ success: false });
+    }
+    return res.status(200).json({ success: false, data: {} });
+
+  } catch (error) {
+    return res.status(400).json({ success: false });
+  }
 });
 
 
-router.get('/:eventId', (req, res) => {
-  Post.findById(req.params.eventId)
-    .then(data => {
-      res.json(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-});
-
-router.delete('/:eventId', (req, res) => {
-  Post.remove({_id: req.params.eventId})
-    .then(data => {
-      res.json(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-});
 
 
 module.exports = router;
