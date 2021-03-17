@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/QRscanner/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/QRscanner/static/js/main.33cf04cd.chunk.js",
+    "main.js.map": "/QRscanner/static/js/main.33cf04cd.chunk.js.map",
+    "runtime-main.js": "/QRscanner/static/js/runtime-main.b35067bf.js",
+    "runtime-main.js.map": "/QRscanner/static/js/runtime-main.b35067bf.js.map",
+    "static/js/2.662c1e1c.chunk.js": "/QRscanner/static/js/2.662c1e1c.chunk.js",
+    "static/js/2.662c1e1c.chunk.js.map": "/QRscanner/static/js/2.662c1e1c.chunk.js.map",
+    "static/js/3.10fc2da3.chunk.js": "/QRscanner/static/js/3.10fc2da3.chunk.js",
+    "static/js/3.10fc2da3.chunk.js.map": "/QRscanner/static/js/3.10fc2da3.chunk.js.map",
+    "index.html": "/QRscanner/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/QRscanner/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.662c1e1c.chunk.js.LICENSE.txt": "/QRscanner/static/js/2.662c1e1c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b35067bf.js",
+    "static/js/2.662c1e1c.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.33cf04cd.chunk.js"
+  ]
+}
